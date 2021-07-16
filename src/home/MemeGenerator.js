@@ -43,6 +43,13 @@ export const MemeGenerator = () => {
     }
 
     function handleDownloadMeme() {
+        var element = document.createElement("a")
+        var file = new Blob([generatedMeme], { type: "image/*" })
+
+        element.href = URL.createObjectURL(file)
+        element.download = `${selectedTemplate.name}.jpg`
+        element.click()
+
         setSelectedTemplate(null)
         setGeneratedMeme(null)
         setBoxes([])
@@ -53,7 +60,9 @@ export const MemeGenerator = () => {
             {generatedMeme && (
                 <>
                     <img src={generatedMeme} alt="Generated Meme" className="generated-meme" />
-                    <button type="button" className="button" onClick={handleDownloadMeme}>Baixar Meme</button>
+                    <button type="button" onClick={handleDownloadMeme} className="button">
+                        Baixar meme
+                    </button>
                 </>
             )}
 
